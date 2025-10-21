@@ -1,0 +1,8 @@
+/* src/components/ChatHeader.css */
+.chat-header {
+  padding: 16px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.25rem;
+  border-bottom: 1px solid #444;
+}

@@ -7,7 +7,7 @@ from llm import get_response
 
 
 load_dotenv()  # loads .env
-llama_api_key = os.getenv("LLAMA_API_KEY")
+groq_api_key = os.getenv("GROQ_API_KEY")
 postgress_db_url = os.getenv("POSTGRESS_URL")
 
 app = Flask(__name__)
@@ -18,7 +18,7 @@ def chat():
     data = request.json
     user_message = data.get("message")
 
-    llm_response = get_response(user_message)
+    llm_response = get_response(user_message, groq_api_key)
 
     return jsonify({"response": llm_response})
 

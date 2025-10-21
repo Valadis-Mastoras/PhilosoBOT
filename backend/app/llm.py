@@ -1,9 +1,8 @@
 from groq import Groq
 
 # Function to translate text into a target language
-def get_response(message: str) -> str:
+def get_response(message: str, api_key) -> str:
 
-    api_key = "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"
     client = Groq(api_key=api_key, max_retries=1)
 
     template = f"""
