@@ -1,5 +1,12 @@
+import os
+from dotenv import load_dotenv
+
 from flask import Flask, request, jsonify
-from app.llm import get_response
+from llm import get_response
+
+load_dotenv()  # loads .env
+llama_api_key = os.getenv("LLAMA_API_KEY")
+postgress_db_url = os.getenv("POSTGRESS_URL")
 
 app = Flask(__name__)
 

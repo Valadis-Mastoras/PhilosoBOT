@@ -1,16 +1,21 @@
 version: '3.9'
 services:
   backend:
-    build: ./backend
+    build:
+      context: ./backend
     ports:
-      - "5000:5000"
+      - "5000:5000"   
     environment:
       - FLASK_ENV=development
+      - LLAMA_API_KEY=${LLAMA_API_KEY}
+      - POSTGRES_URL=${POSTGRES_URL}
     volumes:
       - ./backend/app:/app/app
+
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
     ports:
-      - "5173:5173"
+      - "5001:5001"   
     volumes:
       - ./frontend:/app

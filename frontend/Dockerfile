@@ -1,10 +1,12 @@
-FROM node:20-alpine
+FROM node:20
 
 WORKDIR /app
 
-COPY frontend/package.json frontend/package-lock.json ./
+COPY package.json package-lock.json* ./
+
 RUN npm install
 
-COPY frontend/ ./
+COPY . .
 
-CMD ["npm", "run", "dev"]
+EXPOSE 5001
+CMD ["npx", "vite", "--host", "0.0.0.0", "--port", "5001"]

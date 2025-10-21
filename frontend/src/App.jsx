@@ -1,35 +1,35 @@
+// frontend/src/App.jsx
 import { useState } from "react";
-import axios from "axios";
 
 function App() {
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
+  const [message, setMessage] = useState("");
+  const [chat, setChat] = useState([]);
 
   const sendMessage = async () => {
-    const userMessage = input;
-    setMessages([...messages, { sender: "user", text: userMessage }]);
-    setInput("");
+    if (!message) return;
+    setChat([...chat, { user: "You", text: message }]);
 
-    const res = await axios.post("http://localhost:5000/chat", { message: userMessage });
-    setMessages([...messages, { sender: "user", text: userMessage }, { sender: "bot", text: res.data.response }]);
+    const res = await fetch("http://localhost:5000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+    });
+    const data = await res.json();
+
+    setChat([...chat, { user: "You", text: message }, { user: "Bot", text: data.response }]);
+    setMessage("");
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <div className="border p-2 h-80 overflow-y-scroll mb-2">
-        {messages.map((m, i) => (
-          <div key={i} className={m.sender === "user" ? "text-right" : "text-left"}>
-            <span>{m.text}</span>
-          </div>
+    <div style={{ padding: 20 }}>
+      <h1>PhilosoBOT</h1>
+      <div style={{ border: "1px solid #ccc", padding: 10, height: 300, overflow: "auto" }}>
+        {chat.map((c, i) => (
+          <div key={i}><b>{c.user}:</b> {c.text}</div>
         ))}
       </div>
-      <input
-        className="border p-1 w-3/4"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Type a message..."
-      />
-      <button className="border p-1 ml-1" onClick={sendMessage}>Send</button>
+      <input value={message} onChange={(e) => setMessage(e.target.value)} />
+      <button onClick={sendMessage}>Send</button>
     </div>
   );
 }
