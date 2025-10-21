@@ -17,8 +17,10 @@ CORS(app)
 def chat():
     data = request.json
     user_message = data.get("message")
-    # Απλή απάντηση για testing
-    return jsonify({"response": f"Echo: {user_message}"})
+
+    llm_response = get_response(user_message)
+
+    return jsonify({"response": llm_response})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

@@ -1,7 +1,6 @@
 // frontend/src/App.jsx
 import React, { useState, useRef, useEffect } from "react";
 
-// Use conditional backend URL depending on environment
 const backendUrl =
   window.location.hostname === "localhost"
     ? "http://localhost:5000/chat"
@@ -25,7 +24,7 @@ function App() {
     setMessage("");
     setIsTyping(true);
 
-    await new Promise(r => setTimeout(r, 500)); // simulate typing
+    await new Promise(r => setTimeout(r, 300));
 
     try {
       const res = await fetch(backendUrl, {
@@ -43,31 +42,98 @@ function App() {
     }
   };
 
-  const formatTime = (date) => date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  const formatTime = (date) =>
+    date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", height: "100vh", background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", fontFamily: "Arial, sans-serif", color: "#fff", padding: "20px" }}>
-      <h1 style={{ fontSize: "2.5rem", marginBottom: "20px", textShadow: "1px 1px 4px rgba(0,0,0,0.5)" }}>PhilosoBOT</h1>
+    <div style={{
+      display: "flex",
+      flexDirection: "column",
+      height: "100vh",
+      width: "100vw",
+      backgroundColor: "#343541",
+      color: "#fff",
+      fontFamily: "Inter, sans-serif",
+      margin: 0,
+      padding: 0,
+      boxSizing: "border-box",
+    }}>
+      {/* Chat header */}
+      <div style={{
+        padding: "16px",
+        textAlign: "center",
+        fontWeight: "bold",
+        fontSize: "1.25rem",
+        borderBottom: "1px solid #444",
+      }}>
+        PhilosoBOT
+      </div>
 
-      <div style={{ backgroundColor: "#1f1f1f", borderRadius: "15px", width: "400px", maxWidth: "90%", height: "500px", display: "flex", flexDirection: "column", overflowY: "auto", padding: "15px", boxShadow: "0 5px 15px rgba(0,0,0,0.3)" }}>
+      {/* Chat container */}
+      <div style={{
+        flex: 1,
+        overflowY: "auto",
+        padding: "16px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "12px",
+      }}>
         {chat.map((c, i) => (
-          <div key={i} style={{ display: "flex", flexDirection: c.user === "You" ? "row-reverse" : "row", alignItems: "flex-end", margin: "5px 0" }}>
-            <div style={{ width: 35, height: 35, borderRadius: "50%", backgroundColor: c.user === "You" ? "#667eea" : "#764ba2", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold", margin: "0 10px", flexShrink: 0 }}>
-              {c.user[0]}
-            </div>
-            <div style={{ backgroundColor: c.user === "You" ? "#667eea" : "#764ba2", color: "#fff", padding: "10px 15px", borderRadius: "15px", maxWidth: "70%", wordBreak: "break-word", boxShadow: "0 2px 5px rgba(0,0,0,0.2)", position: "relative" }}>
-              <div style={{ fontSize: "0.85rem", opacity: 0.8, marginBottom: 3 }}>
-                {c.user} • {formatTime(c.time)}
-              </div>
+          <div key={i} style={{
+            display: "flex",
+            flexDirection: c.user === "You" ? "row-reverse" : "row",
+            alignItems: "flex-start",
+            gap: "10px",
+          }}>
+            {/* Avatar */}
+            <div style={{
+              width: 36,
+              height: 36,
+              borderRadius: "50%",
+              backgroundColor: c.user === "You" ? "#10a37f" : "#444654",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontWeight: "bold",
+              fontSize: "1rem",
+              flexShrink: 0,
+            }}>{c.user[0]}</div>
+
+            {/* Message bubble */}
+            <div style={{
+              backgroundColor: c.user === "You" ? "#10a37f" : "#444654",
+              padding: "12px 16px",
+              borderRadius: "12px",
+              maxWidth: "70%",
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+              lineHeight: "1.5",
+            }}>
               {c.text}
             </div>
           </div>
         ))}
 
         {isTyping && (
-          <div style={{ display: "flex", alignItems: "center", margin: "5px 0" }}>
-            <div style={{ width: 35, height: 35, borderRadius: "50%", backgroundColor: "#764ba2", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold", marginRight: "10px" }}>B</div>
-            <div style={{ backgroundColor: "#764ba2", padding: "10px 15px", borderRadius: "15px", maxWidth: "70%", fontStyle: "italic", color: "#fff", boxShadow: "0 2px 5px rgba(0,0,0,0.2)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <div style={{
+              width: 36,
+              height: 36,
+              borderRadius: "50%",
+              backgroundColor: "#444654",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontWeight: "bold",
+            }}>B</div>
+            <div style={{
+              backgroundColor: "#444654",
+              padding: "12px 16px",
+              borderRadius: "12px",
+              fontStyle: "italic",
+              color: "#ccc",
+              maxWidth: "70%",
+            }}>
               Bot is typing...
             </div>
           </div>
@@ -76,19 +142,44 @@ function App() {
         <div ref={chatEndRef}></div>
       </div>
 
-      <div style={{ marginTop: "15px", display: "flex", width: "400px", maxWidth: "90%" }}>
+      {/* Input area */}
+      <div style={{
+        padding: "12px 16px",
+        display: "flex",
+        gap: "10px",
+        borderTop: "1px solid #444",
+        backgroundColor: "#40414f",
+      }}>
         <input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
           placeholder="Type your message..."
-          style={{ flex: 1, padding: "10px 15px", borderRadius: "15px 0 0 15px", border: "none", outline: "none", fontSize: "1rem" }}
+          style={{
+            flex: 1,
+            padding: "12px 16px",
+            borderRadius: "10px",
+            border: "none",
+            outline: "none",
+            backgroundColor: "#343541",
+            color: "#fff",
+            fontSize: "1rem",
+          }}
         />
         <button
           onClick={sendMessage}
-          style={{ backgroundColor: "#667eea", color: "#fff", border: "none", padding: "0 20px", borderRadius: "0 15px 15px 0", cursor: "pointer", fontWeight: "bold", fontSize: "1rem", transition: "background 0.3s" }}
-          onMouseOver={e => e.currentTarget.style.backgroundColor = "#556cd6"}
-          onMouseOut={e => e.currentTarget.style.backgroundColor = "#667eea"}
+          style={{
+            padding: "0 18px",
+            borderRadius: "10px",
+            border: "none",
+            backgroundColor: "#10a37f",
+            color: "#fff",
+            fontWeight: "bold",
+            cursor: "pointer",
+            transition: "background 0.3s",
+          }}
+          onMouseOver={e => e.currentTarget.style.backgroundColor = "#0d826a"}
+          onMouseOut={e => e.currentTarget.style.backgroundColor = "#10a37f"}
         >
           Send
         </button>
