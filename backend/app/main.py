@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from llm import get_response
 
 
@@ -10,6 +11,7 @@ llama_api_key = os.getenv("LLAMA_API_KEY")
 postgress_db_url = os.getenv("POSTGRESS_URL")
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/chat", methods=["POST"])
 def chat():
