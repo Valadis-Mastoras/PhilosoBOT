@@ -22,6 +22,7 @@ Built with **Flask**, **React**, **Docker**, and powered by **LLaMA-based models
 
 ```bash
 git clone https://github.com/Valadis-Mastoras/PhilosoBOT.git
+cd PhilosoBOT
 ```
 
 ### 2. Fill in the .env File
@@ -36,9 +37,7 @@ Currently, please ignore the POSTGRESS .env variable as this refers to a future 
 docker-compose up --build
 ```
 
-Backend runs on http://localhost:5000
-
-Frontend runs on http://localhost:5001
+Chatbot runs on http://localhost:5001
 
 
 ## 🚧 Project Status
@@ -51,3 +50,8 @@ Upcoming features include:
 - 🗄️ **PostgreSQL Integration** to store chat histories and user sessions for efficient retrieval and long-term memory.
 
 These enhancements aim to make Philosobot more context-aware, informed, and capable of deep, textually-supported discussions.
+
+
+## 🖼️ Screenshot
+
+![Philosobot Chat Interface](./assets/screenshot.png)
