@@ -24,9 +24,11 @@ Built with **Flask**, **React**, **Docker**, and powered by **LLaMA-based models
 git clone https://github.com/Valadis-Mastoras/PhilosoBOT.git
 ```
 
-### 2. Create a .env File
+### 2. Fill in the .env File
 
-In the project root, create a .env file
+You should create a GROQ API KEY and place it in the relevant variable in .env file. 
+
+Currently, please ignore the POSTGRESS .env variable as this refers to a future development stage.
 
 ### 3. Build and Run with Docker Compose
 
@@ -37,3 +39,15 @@ docker-compose up --build
 Backend runs on http://localhost:5000
 
 Frontend runs on http://localhost:5001
+
+
+## 🚧 Project Status
+
+This project is **still under active development**.  
+Upcoming features include:  
+
+- 🧩 **RAG (Retrieval-Augmented Generation)** on a curated corpus of **philosophical texts**, enabling the model to provide grounded, reference-based responses.  
+- 🧠 **Chat Memory & History**, allowing the bot to retain conversational context and continuity across multiple interactions.  
+- 🗄️ **PostgreSQL Integration** to store chat histories and user sessions for efficient retrieval and long-term memory.
+
+These enhancements aim to make Philosobot more context-aware, informed, and capable of deep, textually-supported discussions.
