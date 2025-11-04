@@ -1,40 +1,39 @@
-# Chatbot Architecture Overview
+# 🧠 Philosobot — A Chatbot for Thoughtful Conversations
 
-## Main Architecture
+**Philosophbot** is an intelligent chatbot designed to engage in meaningful conversations — especially about **philosophy** — while remaining conversational and human-like on general topics.  
 
-### 1. Core Functionality (MVP)
-- [x] Chatbot powered by open-source LLMs
-- [x] Text-based input/output
-- [x] Utilizes LangChain and advanced reasoning techniques (e.g., chain-of-thought)
-- [x] Maintains chat history/context across multiple interactions
-
-### 2. UI/UX
-- [x] React-based frontend
-- [x] Simple chat interface using Tailwind CSS or MUI
-- [x] Basic responsive design
-
-### 3. Backend / API
-- [x] Flask REST API
-- [x] Handles user messages, forwards to LLM, returns responses
-- [x] Manages sessions or conversation history
-- [x] Optional Postgres database to store chat history
-
-### 4. Infrastructure & Dev Practices
-- [x] Git for version control (branching, commits, optional GitHub Actions)
-- [x] Docker for environment reproducibility
-- [x] Future goal: deployable on cloud (e.g., AWS)
-
-### 5. Extras
-- [x] Unit testing for core functionality
-- [x] Logging and monitoring
+Built with **Flask**, **React**, **Docker**, and powered by **LLaMA-based models** using **Groq API**, this project demonstrates a clean and scalable setup for an AI-driven application.
 
 ---
 
-## Quick Start
+## 🚀 Features
+
+- 💬 **Conversational Chatbot:** Naturally interacts with users; shifts into philosophical mode when asked.  
+- 🦙 **Groq + LLaMA Integration:** Uses Groq’s optimized large language models for low-latency inference.  
+- 🌐 **Full-Stack Setup:** Flask backend with a React frontend, containerized with Docker.  
+
+
+
+---
+
+## 🛠️ Setup & Installation
+
+### 1. Clone the Repository
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/projectname.git
+git clone https://github.com/Valadis-Mastoras/PhilosoBOT.git
+```
 
-# Start with Docker
+### 2. Create a .env File
+
+In the project root, create a .env file
+
+### 3. Build and Run with Docker Compose
+
+```bash
 docker-compose up --build
+```
+
+Backend runs on http://localhost:5000
+
+Frontend runs on http://localhost:5001
